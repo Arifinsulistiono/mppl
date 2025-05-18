@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    container_name: klinik_web
+    volumes:
+      - ./src:/var/www/html/
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+  db:
+    image: mysql:8
+    container_name: klinik_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: klinik
+      MYSQL_USER: user
+      MYSQL_PASSWORD: Admin123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
